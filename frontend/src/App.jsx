@@ -9,8 +9,10 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminPets from "./pages/AdminPets";
 import FindPets from "./pages/FindPets";
 import PetProfile from "./pages/PetProfile";
+import AdminAdoptionRequests from "./pages/AdminAdoptionRequests";
 import Donate from "./pages/Donate";
 import About from "./pages/About";
+import UserProfile from "./pages/UserProfile";
 
 function ProtectedAdminRoute({ children }) {
   const user = JSON.parse(localStorage.getItem("user") || "null");
@@ -33,6 +35,7 @@ function App() {
         <Route path="/pets/:id" element={<PetProfile />} />
         <Route path="/donate" element={<Donate />} />
         <Route path="/about" element={<About />} />
+        <Route path="/profile" element={<UserProfile />} />
 
         {/* Admin Routes wrapped in AdminLayout */}
         <Route
@@ -45,7 +48,7 @@ function App() {
         >
           <Route index element={<AdminDashboard />} />
           <Route path="pets" element={<AdminPets />} />
-          <Route path="requests" element={<div className="admin-header"><h1>Adoption Requests</h1><p>Feature coming soon.</p></div>} />
+          <Route path="requests" element={<AdminAdoptionRequests />} />
           <Route path="donations" element={<div className="admin-header"><h1>Donations</h1><p>Feature coming soon.</p></div>} />
           <Route path="settings" element={<div className="admin-header"><h1>Settings</h1><p>Feature coming soon.</p></div>} />
         </Route>

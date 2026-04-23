@@ -3,19 +3,26 @@ import API from "../api/api";
 
 function AdminDashboard() {
   const [totalPets, setTotalPets] = useState(0);
+  const [adoptionStats, setAdoptionStats] = useState({ total_requests: 0, pending: 0, approved: 0, rejected: 0 });
 
   useEffect(() => {
-    const fetchPets = async () => {
+    const fetchData = async () => {
       try {
-        const response = await API.get("/pets");
-        if (response.data && response.data.data) {
-          setTotalPets(response.data.data.length);
+        const [petsRes, statsRes] = await Promise.all([
+          API.get("/pets"),
+          API.get("/adoptions/stats"),
+        ]);
+        if (petsRes.data && petsRes.data.data) {
+          setTotalPets(petsRes.data.data.length);
+        }
+        if (statsRes.data && statsRes.data.data) {
+          setAdoptionStats(statsRes.data.data);
         }
       } catch (e) {
         console.error(e);
       }
     };
-    fetchPets();
+    fetchData();
   }, []);
 
   return (
@@ -67,7 +74,7 @@ function AdminDashboard() {
             </div>
           </div>
           <div className="admin-stat-label">Succesful Adoptions</div>
-          <div className="admin-stat-value">0</div>
+          <div className="admin-stat-value">{adoptionStats.approved || 0}</div>
         </div>
 
         {/* Adoption Requests */}
@@ -87,7 +94,7 @@ function AdminDashboard() {
             </div>
           </div>
           <div className="admin-stat-label">Adoption Requests</div>
-          <div className="admin-stat-value">0</div>
+          <div className="admin-stat-value">{adoptionStats.pending || 0}</div>
         </div>
       </div>
 

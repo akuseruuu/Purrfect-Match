@@ -1,41 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../api/api";
-
-function FindPetsNavbar() {
-  const user = JSON.parse(localStorage.getItem("user") || "null");
-
-  return (
-    <nav className="landing-navbar">
-      <Link to="/" className="landing-brand">Purrfect Match</Link>
-      <div className="landing-nav-center">
-        <Link to="/" className="landing-nav-item">Home</Link>
-        <Link to="/pets" className="landing-nav-item" style={{ color: "#b63d1a" }}>Find a Pet</Link>
-        <Link to="/donate" className="landing-nav-item">Donate</Link>
-        <Link to="/about" className="landing-nav-item">About Us</Link>
-      </div>
-      <div className="landing-nav-right">
-        {user ? (
-          <>
-            {user.role === "admin" && <Link to="/admin" className="landing-nav-item">Admin</Link>}
-            <button
-              type="button"
-              className="landing-signup-btn"
-              onClick={() => { localStorage.removeItem("user"); window.location.reload(); }}
-            >
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <Link to="/login" className="landing-login-link">Login</Link>
-            <Link to="/signup" className="landing-signup-btn">Sign-up</Link>
-          </>
-        )}
-      </div>
-    </nav>
-  );
-}
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function FindPets() {
   const [pets, setPets] = useState([]);
@@ -124,7 +91,7 @@ function FindPets() {
 
   return (
     <main className="landing-page">
-      <FindPetsNavbar />
+      <Navbar />
 
       <section className="findpets-container">
         {/* Top Search & Filter Bar */}
@@ -259,20 +226,7 @@ function FindPets() {
         )}
       </section>
 
-      {/* Footer */}
-      <footer className="landing-footer">
-        <div className="landing-footer-inner">
-          <h3 className="landing-footer-brand">Purrfect Match</h3>
-          <div className="landing-footer-links">
-            <Link to="/">Privacy Policy</Link>
-            <Link to="/">Terms of Services</Link>
-            <Link to="/">Contact Us</Link>
-          </div>
-          <p className="landing-footer-copy">
-            © {new Date().getFullYear()} Purrfect Match. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }
