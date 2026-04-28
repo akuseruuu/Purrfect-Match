@@ -13,6 +13,7 @@ import AdminAdoptionRequests from "./pages/AdminAdoptionRequests";
 import Donate from "./pages/Donate";
 import About from "./pages/About";
 import UserProfile from "./pages/UserProfile";
+import AdoptPet from "./pages/AdoptPet";
 
 function ProtectedAdminRoute({ children }) {
   const user = JSON.parse(localStorage.getItem("user") || "null");
@@ -36,6 +37,7 @@ function App() {
         <Route path="/donate" element={<Donate />} />
         <Route path="/about" element={<About />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/adopt/:petId" element={<AdoptPet />} />
 
         {/* Admin Routes wrapped in AdminLayout */}
         <Route

@@ -1,3 +1,8 @@
+/* 
+   Admin Panel Styles — Purrfect Match
+    */
+
+/* ─── Design Tokens ─── */
 :root {
   --admin-bg: #e1d3c5;
   --admin-sidebar-bg: #f4ece4;
@@ -6,9 +11,14 @@
   --admin-active-bg: #fad8cc;
   --admin-border: #d4c4b5;
   --admin-accent: #b63d1a;
+  --admin-accent-hover: #9a3415;
+  --admin-sidebar-w: 260px;
 }
 
-/* ─── Layout ─── */
+/* 
+   1. LAYOUT — Sidebar + Main Content
+    */
+
 .admin-layout {
   display: flex;
   min-height: 100vh;
@@ -17,8 +27,28 @@
   font-family: Arial, sans-serif;
 }
 
+/* ── Mobile hamburger button (hidden on desktop) ── */
+.admin-mobile-toggle {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1100;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--admin-card-bg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  color: var(--admin-text);
+}
+
+/* ── Sidebar ── */
 .admin-sidebar {
-  width: 260px;
+  width: var(--admin-sidebar-w);
   background-color: var(--admin-sidebar-bg);
   display: flex;
   flex-direction: column;
@@ -26,6 +56,30 @@
   flex-shrink: 0;
 }
 
+/* Close button inside sidebar (hidden on desktop) */
+.admin-sidebar-close {
+  display: none;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--admin-border);
+  border-radius: 50%;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  color: var(--admin-text);
+}
+
+/* Overlay behind sidebar on mobile (hidden on desktop) */
+.admin-sidebar-overlay {
+  display: none;
+}
+
+/* ── Brand ── */
 .admin-brand {
   display: flex;
   align-items: center;
@@ -44,6 +98,7 @@
   padding: 6px;
 }
 
+/* ── Navigation ── */
 .admin-nav {
   display: flex;
   flex-direction: column;
@@ -83,6 +138,7 @@
   margin-top: auto;
 }
 
+/* ── Sidebar "Add Pet" Button ── */
 .admin-add-pet-btn {
   display: block;
   background-color: var(--admin-accent);
@@ -100,9 +156,10 @@
 }
 
 .admin-add-pet-btn:hover {
-  background-color: #9a3415;
+  background-color: var(--admin-accent-hover);
 }
 
+/* ── Main Content Area ── */
 .admin-content {
   flex-grow: 1;
   padding: 40px;
@@ -112,14 +169,19 @@
   gap: 30px;
 }
 
-/* ─── Header ─── */
+/* 
+   2. HEADER
+    */
+
 .admin-header h1 {
   font-size: 28px;
-  margin: 0;
-  margin-bottom: 10px;
+  margin: 0 0 10px;
 }
 
-/* ─── Stat Cards ─── */
+/* 
+   3. STAT CARDS
+   */
+
 .admin-stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -184,19 +246,29 @@
   margin-top: 4px;
 }
 
+.admin-stat-title {
+  font-size: 13px;
+  color: #777;
+  margin-top: 4px;
+}
+
 .admin-stat-value {
   font-size: 30px;
   font-weight: bold;
   margin-top: 2px;
 }
 
-/* ─── Dashboard Charts ─── */
+/* 
+   4. DASHBOARD — Charts & Activity
+   */
+
 .admin-main-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 20px;
 }
 
+/* ── Chart Card ── */
 .admin-chart-card {
   background-color: var(--admin-card-bg);
   border-radius: 16px;
@@ -224,7 +296,7 @@
 .admin-chart-subtitle {
   font-size: 12px;
   color: #888;
-  margin: 4px 0 0 0;
+  margin: 4px 0 0;
 }
 
 .admin-chart-select {
@@ -275,7 +347,7 @@
   color: #555;
 }
 
-/* ─── Activity Card ─── */
+/* ── Activity Card ── */
 .admin-activity-card {
   background-color: var(--admin-card-bg);
   border-radius: 16px;
@@ -293,13 +365,13 @@
 .admin-activity-title {
   font-size: 18px;
   font-weight: bold;
-  margin: 0 0 4px 0;
+  margin: 0 0 4px;
 }
 
 .admin-activity-subtitle {
   font-size: 12px;
   color: #888;
-  margin: 4px 0 24px 0;
+  margin: 4px 0 24px;
 }
 
 .admin-activity-list {
@@ -359,7 +431,10 @@
   background-color: #c5b4a4;
 }
 
-/* ─── Pet Catalog Table ─── */
+/* ═══════════════════════════════════════════════════════════════════════════
+   5. PET CATALOG — Table, Search, Actions
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 .pet-catalog {
   background-color: var(--admin-sidebar-bg);
   border-radius: 16px;
@@ -367,13 +442,76 @@
   margin-top: 10px;
 }
 
+/* ── Catalog Header (title + search bar side-by-side) ── */
+.pet-catalog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
 .pet-catalog-title {
   font-size: 16px;
   font-weight: bold;
   letter-spacing: 1px;
-  margin: 0 0 16px 0;
+  margin: 0;
 }
 
+/* ── Search Bar ── */
+.pet-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--admin-card-bg);
+  border: 1.5px solid var(--admin-border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  min-width: 280px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.pet-search-bar:focus-within {
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px rgba(182, 61, 26, 0.1);
+}
+
+.pet-search-icon {
+  flex-shrink: 0;
+  color: #999;
+}
+
+.pet-search-bar input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+  color: var(--admin-text);
+  font-family: inherit;
+}
+
+.pet-search-bar input::placeholder {
+  color: #aaa;
+}
+
+.pet-search-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  font-size: 14px;
+  padding: 0 2px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.pet-search-clear:hover {
+  color: var(--admin-accent);
+}
+
+/* ── Table ── */
 .pet-table-wrapper {
   overflow-x: auto;
 }
@@ -392,6 +530,7 @@
   color: #777;
   letter-spacing: 0.5px;
   border-bottom: 1px solid var(--admin-border);
+  white-space: nowrap;
 }
 
 .pet-table tbody tr {
@@ -408,6 +547,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+/* ── Pet Detail Cell (avatar + name) ── */
 .pet-detail-cell {
   display: flex;
   align-items: center;
@@ -449,6 +589,7 @@
   color: #888;
 }
 
+/* ── Status Badge ── */
 .pet-status-badge {
   display: inline-flex;
   align-items: center;
@@ -457,6 +598,7 @@
   border-radius: 20px;
   font-size: 12px;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .pet-status-badge.available {
@@ -481,6 +623,7 @@
   background-color: currentColor;
 }
 
+/* ── Action Buttons ── */
 .pet-actions-cell {
   display: flex;
   gap: 8px;
@@ -513,6 +656,7 @@
   color: #217a3a;
 }
 
+/* ── Catalog Footer ── */
 .pet-catalog-footer {
   margin-top: 16px;
   padding: 12px 16px;
@@ -522,7 +666,10 @@
   border-radius: 8px;
 }
 
-/* ─── Add Pet FAB ─── */
+/* ═══════════════════════════════════════════════════════════════════════════
+   6. FLOATING ACTION BUTTON — "+ ADD NEW PET"
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 .add-pet-fab {
   position: fixed;
   bottom: 30px;
@@ -542,11 +689,14 @@
 }
 
 .add-pet-fab:hover {
-  background-color: #9a3415;
+  background-color: var(--admin-accent-hover);
   transform: translateY(-2px);
 }
 
-/* ─── Pet Form Modal ─── */
+/* ═══════════════════════════════════════════════════════════════════════════
+   7. PET FORM MODAL
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 .pet-modal-overlay {
   position: fixed;
   inset: 0;
@@ -626,6 +776,10 @@
   padding: 24px;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   8. ANIMATIONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -645,5 +799,221 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   9. RESPONSIVE — Tablet (≤ 1024px)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+
+  /* Stack the dashboard chart + activity vertically */
+  .admin-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-chart-card {
+    min-height: 300px;
+  }
+
+  /* Reduce content padding */
+  .admin-content {
+    padding: 30px 24px;
+    gap: 24px;
+  }
+
+  /* Stat cards: 2 columns on tablet */
+  .admin-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   10. RESPONSIVE — Mobile (≤ 768px)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+  /* Show the hamburger button */
+  .admin-mobile-toggle {
+    display: flex;
+  }
+
+  /* Sidebar becomes a fixed slide-in drawer */
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1200;
+    width: min(280px, 85vw);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: none;
+    overflow-y: auto;
+  }
+
+  .admin-sidebar.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Show close button inside drawer */
+  .admin-sidebar-close {
+    display: flex;
+  }
+
+  /* Dark overlay behind drawer */
+  .admin-sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1150;
+    background-color: rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.2s ease;
+  }
+
+  /* Main content fills full width */
+  .admin-content {
+    padding: 70px 16px 24px;
+    gap: 20px;
+  }
+
+  /* Stat cards stack to 1 column */
+  .admin-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .admin-stat-card {
+    padding: 18px;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .admin-stat-value {
+    font-size: 24px;
+  }
+
+  /* Header */
+  .admin-header h1 {
+    font-size: 22px;
+  }
+
+  /* Pet catalog */
+  .pet-catalog {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .pet-catalog-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pet-search-bar {
+    min-width: unset;
+    width: 100%;
+  }
+
+  /* Table cells: less padding */
+  .pet-table thead th,
+  .pet-table tbody td {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  .pet-table-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .pet-detail-name {
+    font-size: 13px;
+  }
+
+  .pet-detail-id {
+    font-size: 11px;
+  }
+
+  /* FAB */
+  .add-pet-fab {
+    bottom: 20px;
+    right: 16px;
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+
+  /* Dashboard chart */
+  .admin-chart-card {
+    min-height: 250px;
+    padding: 20px;
+  }
+
+  .admin-chart-bar {
+    width: 28px;
+  }
+
+  /* Activity card */
+  .admin-activity-content {
+    padding: 18px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   11. RESPONSIVE — Small phones (≤ 480px)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  .admin-content {
+    padding: 64px 12px 20px;
+  }
+
+  /* Pet table: hide less critical columns on very small screens */
+  .pet-table thead th:nth-child(4),
+  .pet-table tbody td:nth-child(4) {
+    display: none;
+  }
+
+  .pet-table thead th:nth-child(2),
+  .pet-table tbody td:nth-child(2) {
+    display: none;
+  }
+
+  .pet-catalog-title {
+    font-size: 14px;
+  }
+
+  .admin-stat-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .admin-stat-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Modal fills screen on small phones */
+  .pet-modal {
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+    max-height: 95vh;
+  }
+
+  .pet-modal-form {
+    padding: 16px;
   }
 }

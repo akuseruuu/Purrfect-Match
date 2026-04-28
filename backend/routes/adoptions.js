@@ -7,7 +7,16 @@ const router = express.Router();
 // TRANSACTION: Inserts adoption request AND updates pet status atomically.
 // If either operation fails, the entire transaction is rolled back.
 router.post("/", async (req, res) => {
-  const { user_id, pet_id, message } = req.body;
+  const {
+    user_id,
+    pet_id,
+    message,
+    phone,
+    address,
+    living_in,
+    reason,
+    has_other_pets,
+  } = req.body;
 
   if (!user_id || !pet_id) {
     return res.status(400).json({
@@ -59,10 +68,21 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // 3. Insert the adoption request
+    // 3. Insert the adoption request (with household info)
     await connection.query(
-      "INSERT INTO adoption_requests (user_id, pet_id, message) VALUES (?, ?, ?)",
-      [user_id, pet_id, message || null]
+      `INSERT INTO adoption_requests
+         (user_id, pet_id, message, phone, address, living_in, reason, has_other_pets)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        user_id,
+        pet_id,
+        message || null,
+        phone || null,
+        address || null,
+        living_in || null,
+        reason || null,
+        has_other_pets || null,
+      ]
     );
 
     // 4. Update the pet's status to 'Pending'
@@ -95,6 +115,11 @@ router.get("/", async (_req, res) => {
          ar.request_id,
          ar.status   AS request_status,
          ar.message,
+         ar.phone    AS request_phone,
+         ar.address  AS request_address,
+         ar.living_in,
+         ar.reason,
+         ar.has_other_pets,
          ar.created_at,
          ar.updated_at,
          u.user_id,
