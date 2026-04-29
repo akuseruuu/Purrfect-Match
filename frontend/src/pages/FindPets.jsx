@@ -22,7 +22,9 @@ function FindPets() {
     const fetchPets = async () => {
       try {
         const response = await API.get("/pets");
-        setPets(response.data.data || []);
+        const all = response.data.data || [];
+        /* Hide adopted pets from public listing */
+        setPets(all.filter((p) => p.status !== "Adopted"));
       } catch {
         /* silently fail */
       } finally {

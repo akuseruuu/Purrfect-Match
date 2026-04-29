@@ -1017,3 +1017,355 @@
     padding: 16px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   12. ADMIN DONATIONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Stat Cards ── */
+.donate-admin-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.donate-admin-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--admin-card-bg);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.donate-admin-stat-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.donate-admin-stat-card > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.donate-admin-stat-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--admin-text);
+}
+
+.donate-admin-stat-label {
+  font-size: 12px;
+  color: #777;
+  font-weight: 600;
+}
+
+/* ── Filter Tabs ── */
+.donate-admin-filter {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.donate-admin-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1.5px solid var(--admin-border);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 700;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.donate-admin-filter-btn:hover {
+  border-color: var(--admin-accent);
+  color: var(--admin-accent);
+}
+
+.donate-admin-filter-btn.active {
+  background: var(--admin-accent);
+  border-color: var(--admin-accent);
+  color: white;
+}
+
+.donate-admin-filter-count {
+  background: rgba(0,0,0,0.08);
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+}
+
+.donate-admin-filter-btn.active .donate-admin-filter-count {
+  background: rgba(255,255,255,0.25);
+}
+
+/* ── Donation Card List ── */
+.donate-admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.donate-admin-card {
+  display: flex;
+  gap: 20px;
+  background: var(--admin-card-bg);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.donate-admin-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+/* ── Proof Thumbnail ── */
+.donate-admin-thumb {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #efe4d8;
+}
+
+.donate-admin-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s;
+}
+
+.donate-admin-thumb img:hover {
+  transform: scale(1.05);
+}
+
+.donate-admin-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+
+/* ── Info Section ── */
+.donate-admin-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.donate-admin-top-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.donate-admin-amount {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--admin-text);
+  margin: 0;
+}
+
+.donate-admin-ref {
+  font-size: 13px;
+  color: #666;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+/* ── Status Badge ── */
+.donate-admin-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.donate-admin-badge.pending {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.donate-admin-badge.approved {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.donate-admin-badge.rejected {
+  background: #ffebee;
+  color: #c62828;
+}
+
+/* ── User Row ── */
+.donate-admin-user-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.donate-admin-user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4c4b5, #e8ddd2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--admin-text);
+  flex-shrink: 0;
+}
+
+.donate-admin-user-row > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.donate-admin-user-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+.donate-admin-user-email {
+  font-size: 12px;
+  color: #888;
+}
+
+/* ── Footer ── */
+.donate-admin-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.donate-admin-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.donate-admin-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.donate-admin-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.donate-admin-btn.approve {
+  background: #d4edda;
+  color: #217a3a;
+}
+
+.donate-admin-btn.approve:hover:not(:disabled) {
+  background: #b7dfbf;
+}
+
+.donate-admin-btn.reject {
+  background: #f8d7da;
+  color: #b91c1c;
+}
+
+.donate-admin-btn.reject:hover:not(:disabled) {
+  background: #f1c0c4;
+}
+
+.donate-admin-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Responsive: Admin Donations ── */
+@media (max-width: 1024px) {
+  .donate-admin-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .donate-admin-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .donate-admin-stat-card {
+    padding: 14px;
+  }
+
+  .donate-admin-stat-value {
+    font-size: 18px;
+  }
+
+  .donate-admin-card {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .donate-admin-thumb {
+    width: 100%;
+    height: 180px;
+  }
+
+  .donate-admin-top-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .donate-admin-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .donate-admin-filter {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+  }
+
+  .donate-admin-filter-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .donate-admin-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .donate-admin-stat-card {
+    padding: 12px;
+  }
+}

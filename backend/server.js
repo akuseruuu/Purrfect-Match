@@ -6,6 +6,7 @@ const path = require("path");
 const petRoutes = require("./routes/pets");
 const authRoutes = require("./routes/auth");
 const adoptionRoutes = require("./routes/adoptions");
+const donationRoutes = require("./routes/donations");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,6 +23,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/pets", petRoutes);
 app.use("/api", authRoutes);
 app.use("/api/adoptions", adoptionRoutes);
+app.use("/api/donations", donationRoutes);
 
 // ── Health check ────────────────────────────────────────────────────────────
 app.get("/", (_req, res) => {

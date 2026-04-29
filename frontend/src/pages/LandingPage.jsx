@@ -60,8 +60,9 @@ function LandingPage() {
       try {
         const response = await API.get("/pets");
         const all = response.data.data || [];
-        /* Show the 3 most recent pets */
-        setFeaturedPets(all.slice(0, 3));
+        /* Hide adopted pets, then show the 3 most recent */
+        const available = all.filter((p) => p.status !== "Adopted");
+        setFeaturedPets(available.slice(0, 3));
       } catch {
         /* Silently fail – section just won't show */
       }

@@ -25,30 +25,7 @@ const DocumentIcon = () => (
   </svg>
 );
 
-const TrendArrow = ({ direction }) => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    {direction === "up" ? (
-      <>
-        <line x1="7" y1="17" x2="17" y2="7" />
-        <polyline points="7 7 17 7 17 17" />
-      </>
-    ) : (
-      <>
-        <line x1="7" y1="7" x2="17" y2="17" />
-        <polyline points="17 7 17 17 7 17" />
-      </>
-    )}
-  </svg>
-);
+
 
 /* ── Stat Card Sub-component ── */
 
@@ -59,7 +36,6 @@ function StatCard({ icon, iconClass, label, value, trendText, trendDir }) {
         <div className={`admin-stat-icon ${iconClass || ""}`}>{icon}</div>
         <div className={`admin-stat-trend ${trendDir}`}>
           <span>{trendText}</span>
-          <TrendArrow direction={trendDir} />
         </div>
       </div>
       <div className="admin-stat-label">{label}</div>
