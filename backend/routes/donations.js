@@ -137,6 +137,97 @@ router.get("/stats", async (_req, res) => {
   }
 });
 
+// ── GET /api/donations/monthly ──────────────────────────────────────────────
+// Returns monthly donation totals for the specified range (for chart visualization).
+// Accepts ?months=N query param (1, 3, 6, 12). Defaults to 6.
+router.get("/monthly", async (req, res) => {
+  const allowed = [1, 3, 6, 12];
+  const months = allowed.includes(Number(req.query.months)) ? Number(req.query.months) : 6;
+
+  // months=1 means "this calendar month only"
+  const dateFilter = months === 1
+    ? `created_at >= DATE_FORMAT(CURDATE(), '%Y-%m-01')`
+    : `created_at >= DATE_SUB(CURDATE(), INTERVAL ? MONTH)`;
+  const params = months === 1 ? [] : [months];
+
+  try {
+    const [rows] = await pool.query(
+      `SELECT
+         DATE_FORMAT(created_at, '%Y-%m') AS month,
+         COALESCE(SUM(CASE WHEN status = 'approved' THEN amount ELSE 0 END), 0) AS approved_total,
+         COALESCE(SUM(amount), 0) AS all_total,
+         COUNT(*) AS donation_count
+       FROM donations
+       WHERE ${dateFilter}
+       GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+       ORDER BY month ASC`,
+      params
+    );
+    res.json({ success: true, data: rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Failed to fetch monthly donation data." });
+  }
+});
+
+// ── GET /api/donations/export/csv ───────────────────────────────────────────
+// Exports donation records as a CSV file for reporting.
+// Accepts optional ?months=N query param (1, 3, 6, 12) to filter by date range.
+router.get("/export/csv", async (req, res) => {
+  const allowedMonths = [1, 3, 6, 12];
+  const months = allowedMonths.includes(Number(req.query.months))
+    ? Number(req.query.months)
+    : null; // null = export all
+
+  try {
+    let query = `SELECT
+         d.id,
+         u.full_name AS donor_name,
+         u.email     AS donor_email,
+         d.amount,
+         d.reference_number,
+         d.status,
+         d.created_at
+       FROM donations d
+       INNER JOIN users u ON d.user_id = u.user_id`;
+    const params = [];
+
+    if (months === 1) {
+      query += ` WHERE d.created_at >= DATE_FORMAT(CURDATE(), '%Y-%m-01')`;
+    } else if (months) {
+      query += ` WHERE d.created_at >= DATE_SUB(CURDATE(), INTERVAL ? MONTH)`;
+      params.push(months);
+    }
+
+    query += ` ORDER BY d.created_at DESC`;
+
+    const [rows] = await pool.query(query, params);
+
+    const headers = ["ID", "Donor Name", "Donor Email", "Amount", "Reference Number", "Status", "Date"];
+    const csvRows = rows.map((r) =>
+      [
+        r.id,
+        `"${(r.donor_name || "").replace(/"/g, '""')}"`,
+        `"${(r.donor_email || "").replace(/"/g, '""')}"`,
+        r.amount,
+        `"${r.reference_number}"`,
+        r.status,
+        new Date(r.created_at).toISOString(),
+      ].join(",")
+    );
+
+    const csv = [headers.join(","), ...csvRows].join("\n");
+    const rangeLabel = months ? `${months}mo` : "all";
+
+    res.setHeader("Content-Type", "text/csv");
+    res.setHeader("Content-Disposition", `attachment; filename=donations_report_${rangeLabel}.csv`);
+    res.send(csv);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Failed to export donations." });
+  }
+});
+
 // ── GET /api/donations ──────────────────────────────────────────────────────
 // Admin: Return all donations with user info.
 router.get("/", async (_req, res) => {

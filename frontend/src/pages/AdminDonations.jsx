@@ -125,7 +125,7 @@ function AdminDonations() {
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 5;
 
   const fetchDonations = async () => {
     try {
@@ -297,32 +297,36 @@ function AdminDonations() {
 
           {/* Pagination Controls */}
           {totalPages > 1 && (
-            <div className="findpets-pagination" style={{ marginTop: "30px", marginBottom: "20px" }}>
+            <div className="pet-pagination" style={{ marginTop: "24px" }}>
               <button
-                className="page-btn"
+                className="pet-pagination-btn"
                 onClick={() => paginate(currentPage - 1)}
                 disabled={currentPage === 1}
               >
-                &lt;
+                ‹ Prev
               </button>
               {[...Array(totalPages)].map((_, i) => (
                 <button
                   key={i + 1}
-                  className={`page-btn ${currentPage === i + 1 ? "active" : ""}`}
+                  className={`pet-pagination-btn ${currentPage === i + 1 ? "active" : ""}`}
                   onClick={() => paginate(i + 1)}
                 >
                   {i + 1}
                 </button>
               ))}
               <button
-                className="page-btn"
+                className="pet-pagination-btn"
                 onClick={() => paginate(currentPage + 1)}
                 disabled={currentPage === totalPages}
               >
-                &gt;
+                Next ›
               </button>
             </div>
           )}
+
+          <div className="pet-catalog-footer" style={{ marginTop: "16px" }}>
+            Showing {indexOfFirstItem + 1}–{Math.min(indexOfLastItem, filteredDonations.length)} of {filteredDonations.length} Donations
+          </div>
         </>
       )}
 

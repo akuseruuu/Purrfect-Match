@@ -656,6 +656,219 @@ button {
   margin: 0;
 }
 
+/* ═══ About Page ═══ */
+.about-hero {
+  text-align: center;
+  padding: 80px 40px 60px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.about-hero h1 {
+  font-size: 42px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+  line-height: 1.2;
+}
+
+.about-hero p {
+  font-size: 17px;
+  color: #666;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Mission / What We Do / Vision ── */
+.about-section {
+  background-color: #f0e6da;
+  padding: 64px 40px;
+}
+
+.about-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.about-block {
+  background: #fffbf5;
+  border-radius: 16px;
+  padding: 32px 28px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.about-icon {
+  font-size: 36px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.about-block h2 {
+  font-size: 19px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+}
+
+.about-block p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555;
+  margin: 0;
+}
+
+/* ── How It Works Steps ── */
+.about-steps-section {
+  padding: 64px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-steps-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 40px 0;
+}
+
+.about-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+}
+
+.about-step {
+  flex: 1;
+  max-width: 220px;
+  padding: 0 16px;
+}
+
+.about-step-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #b63d1a;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.about-step h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.about-step p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+}
+
+.about-step-divider {
+  width: 48px;
+  height: 2px;
+  background: #d4c4b5;
+  margin-top: 22px;
+  flex-shrink: 0;
+}
+
+/* ── CTA ── */
+.about-cta {
+  background-color: #f0e6da;
+  text-align: center;
+  padding: 56px 40px;
+}
+
+.about-cta h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 24px 0;
+}
+
+.about-cta-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.about-cta-secondary {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+  padding: 14px 32px;
+  border: 2px solid #1a1a1a;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.about-cta-secondary:hover {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+/* ── About Page Responsive ── */
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 50px 24px 40px;
+  }
+
+  .about-hero h1 {
+    font-size: 30px;
+  }
+
+  .about-section {
+    padding: 40px 20px;
+  }
+
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .about-steps-section {
+    padding: 40px 20px;
+  }
+
+  .about-steps {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .about-step-divider {
+    width: 2px;
+    height: 24px;
+    margin: 0;
+  }
+
+  .about-cta {
+    padding: 40px 20px;
+  }
+
+  .about-cta h2 {
+    font-size: 22px;
+  }
+}
+
+
 /* ═══ Mobile Responsive Navbar ═══ */
 @media (max-width: 768px) {
   .landing-navbar {

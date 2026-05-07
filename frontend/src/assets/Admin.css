@@ -299,14 +299,34 @@
   margin: 4px 0 0;
 }
 
+.admin-chart-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
 .admin-chart-select {
   background-color: #e5dcd3;
-  border: none;
-  border-radius: 20px;
-  padding: 6px 16px;
-  font-size: 12px;
+  border: 1.5px solid var(--admin-border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--admin-text);
   outline: none;
   cursor: pointer;
+  transition: border-color 0.2s;
+  appearance: auto;
+}
+
+.admin-chart-select:hover {
+  border-color: var(--admin-accent);
+}
+
+.admin-chart-select:focus {
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px rgba(182, 61, 26, 0.1);
 }
 
 .admin-chart-area {
@@ -430,6 +450,184 @@
 .admin-activity-footer:hover {
   background-color: #c5b4a4;
 }
+
+/* ── Chart.js Container ── */
+.admin-chartjs-container {
+  flex-grow: 1;
+  min-height: 260px;
+  position: relative;
+  padding: 8px 0;
+}
+
+/* ── Chart Dataset Toggles ── */
+.admin-chart-toggles {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 4px;
+  margin-bottom: 4px;
+}
+
+.admin-chart-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s;
+}
+
+.admin-chart-toggle:hover {
+  color: var(--admin-text);
+}
+
+.admin-chart-toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  accent-color: var(--admin-accent);
+}
+
+.admin-toggle-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.admin-chart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 200px;
+  color: #999;
+  gap: 8px;
+}
+
+.admin-chart-empty span {
+  font-size: 40px;
+}
+
+.admin-chart-empty p {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* ── Export Button ── */
+.admin-export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: 1.5px solid var(--admin-border);
+  background: var(--admin-card-bg);
+  color: var(--admin-text);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.admin-export-btn:hover:not(:disabled) {
+  border-color: var(--admin-accent);
+  color: var(--admin-accent);
+  background: #fef6f3;
+}
+
+.admin-export-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Chart Summary Row ── */
+.admin-chart-summary {
+  display: flex;
+  gap: 16px;
+  padding-top: 16px;
+  margin-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.admin-chart-summary-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 10px;
+}
+
+.admin-chart-summary-label {
+  font-size: 11px;
+  color: #888;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-chart-summary-value {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--admin-text);
+}
+
+.admin-chart-summary-value.approved {
+  color: #2e7d32;
+}
+
+.admin-chart-summary-value.highlight {
+  color: var(--admin-accent);
+}
+
+/* ── Activity Enhancements ── */
+.admin-activity-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-activity-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-activity-status {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.admin-activity-loading,
+.admin-activity-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 30px 0;
+  color: #999;
+  font-size: 14px;
+}
+
+.admin-activity-empty span {
+  font-size: 32px;
+}
+
+.admin-activity-empty p {
+  margin: 0;
+}
+
 
 /* ═══════════════════════════════════════════════════════════════════════════
    5. PET CATALOG — Table, Search, Actions
@@ -664,6 +862,50 @@
   color: #777;
   background-color: var(--admin-card-bg);
   border-radius: 8px;
+}
+
+/* ── Pagination ── */
+.pet-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 18px;
+  padding: 4px 0;
+}
+
+.pet-pagination-btn {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1.5px solid var(--admin-border);
+  border-radius: 8px;
+  background-color: var(--admin-card-bg);
+  color: var(--admin-text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pet-pagination-btn:hover:not(:disabled):not(.active) {
+  border-color: var(--admin-accent);
+  color: var(--admin-accent);
+  background-color: #fef6f3;
+}
+
+.pet-pagination-btn.active {
+  background-color: var(--admin-accent);
+  border-color: var(--admin-accent);
+  color: #fff;
+}
+
+.pet-pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

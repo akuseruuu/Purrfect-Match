@@ -53,7 +53,6 @@ function App() {
           <Route path="pets" element={<AdminPets />} />
           <Route path="requests" element={<AdminAdoptionRequests />} />
           <Route path="donations" element={<AdminDonations />} />
-          <Route path="settings" element={<div className="admin-header"><h1>Settings</h1><p>Feature coming soon.</p></div>} />
         </Route>
       </Routes>
     </BrowserRouter>
