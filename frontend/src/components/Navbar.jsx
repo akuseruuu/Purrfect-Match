@@ -28,6 +28,7 @@ function Navbar() {
 
   return (
     <nav className="landing-navbar">
+      <img src="/logo.png" alt="Purrfect Match Logo" width="50" height="50" />
       <Link to="/" className="landing-brand">Purrfect Match</Link>
 
       {/* Hamburger button — visible only on mobile */}

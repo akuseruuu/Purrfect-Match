@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { API_BASE } from "../utils/constants";
 
 const emptyForm = {
   name: "",
@@ -88,7 +89,7 @@ function PetForm({ selectedPet, onSubmit, onCancel, isOpen, onClose }) {
   const resolvePreview = (src) => {
     if (!src) return "";
     if (src.startsWith("blob:") || src.startsWith("http")) return src;
-    return `http://localhost:3000/${src}`;
+    return `${API_BASE}/${src}`;
   };
 
   return (

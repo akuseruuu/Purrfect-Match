@@ -4,17 +4,35 @@ import API from "../api/api";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+/* ── Helpers ── */
+
+import { API_BASE } from "../utils/constants";
+
+function resolveImage(img) {
+  if (!img) return null;
+  if (img.startsWith("http")) return img;
+  return `${API_BASE}/${img}`;
+}
+
+function formatAge(age) {
+  if (!age && age !== 0) return "";
+  const num = parseInt(age, 10);
+  if (num >= 12) {
+    const years = Math.floor(num / 12);
+    return `${years} Year${years > 1 ? "s" : ""} Old`;
+  }
+  return `${num} Month${num !== 1 ? "s" : ""} Old`;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   Pet Profile Page
+   ══════════════════════════════════════════════════════════════════════════════ */
+
 function PetProfile() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [pet, setPet] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  // Adoption modal state
-  const [showAdoptModal, setShowAdoptModal] = useState(false);
-  const [adoptMessage, setAdoptMessage] = useState("");
-  const [adoptSubmitting, setAdoptSubmitting] = useState(false);
-  const [adoptResult, setAdoptResult] = useState(null); // { success, message }
 
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
@@ -34,53 +52,16 @@ function PetProfile() {
     fetchPet();
   }, [id]);
 
-  const resolveImage = (img) => {
-    if (!img) return null;
-    if (img.startsWith("http")) return img;
-    return `http://localhost:3000/${img}`;
-  };
-
-  const formatAge = (age) => {
-    if (!age && age !== 0) return "";
-    const num = parseInt(age, 10);
-    if (num >= 12) {
-      const years = Math.floor(num / 12);
-      return `${years} Year${years > 1 ? "s" : ""} Old`;
-    }
-    return `${num} Month${num !== 1 ? "s" : ""} Old`;
-  };
-
   const handleAdoptClick = () => {
     if (!user || user.role === "admin") {
-      // Not logged in or admin — redirect to login
       navigate("/login");
       return;
     }
-    setAdoptResult(null);
-    setAdoptMessage("");
-    setShowAdoptModal(true);
+    // Navigate to the dedicated adoption form page
+    navigate(`/adopt/${pet.id}`);
   };
 
-  const handleAdoptSubmit = async () => {
-    setAdoptSubmitting(true);
-    setAdoptResult(null);
-    try {
-      const response = await API.post("/adoptions", {
-        user_id: user.user_id,
-        pet_id: pet.id,
-        message: adoptMessage,
-      });
-      setAdoptResult({ success: true, message: response.data.message });
-      // Update pet status in local state
-      setPet((prev) => ({ ...prev, status: "Pending" }));
-    } catch (err) {
-      const msg = err.response?.data?.message || "Something went wrong.";
-      setAdoptResult({ success: false, message: msg });
-    } finally {
-      setAdoptSubmitting(false);
-    }
-  };
-
+  /* ── Loading State ── */
   if (loading) {
     return (
       <main className="landing-page">
@@ -93,6 +74,7 @@ function PetProfile() {
     );
   }
 
+  /* ── Not Found State ── */
   if (!pet) {
     return (
       <main className="landing-page">
@@ -108,13 +90,14 @@ function PetProfile() {
     );
   }
 
+  /* ── Derived Data ── */
   const imageUrl = resolveImage(pet.image);
   const tags = pet.tags
     ? pet.tags.split(",").map((t) => t.trim()).filter(Boolean)
     : [];
-
   const isAvailable = pet.status === "Available";
 
+  /* ── Render ── */
   return (
     <main className="landing-page">
       <Navbar />
@@ -136,7 +119,7 @@ function PetProfile() {
           <div className="pet-profile-details">
             <div className="pet-profile-name-row">
               <h1 className="pet-profile-name">{pet.name}</h1>
-              <span className={`pet-profile-status ${pet.status === "Available" ? "" : pet.status === "Pending" ? "pending" : "adopted"}`}>
+              <span className={`pet-profile-status ${pet.status === "Pending" ? "pending" : pet.status === "Adopted" ? "adopted" : ""}`}>
                 {pet.status || "Available"}
               </span>
             </div>
@@ -187,76 +170,6 @@ function PetProfile() {
           </div>
         </div>
       </section>
-
-      {/* ── Adoption Modal ── */}
-      {showAdoptModal && (
-        <div className="adopt-modal-overlay" onClick={() => !adoptSubmitting && setShowAdoptModal(false)}>
-          <div className="adopt-modal" onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              className="adopt-modal-close"
-              onClick={() => setShowAdoptModal(false)}
-              disabled={adoptSubmitting}
-            >
-              ✕
-            </button>
-
-            {adoptResult?.success ? (
-              <div className="adopt-modal-success">
-                <div className="adopt-success-icon">🎉</div>
-                <h2>Request Submitted!</h2>
-                <p>{adoptResult.message}</p>
-                <button
-                  type="button"
-                  className="landing-cta-btn"
-                  onClick={() => setShowAdoptModal(false)}
-                >
-                  Done
-                </button>
-              </div>
-            ) : (
-              <>
-                <h2 className="adopt-modal-title">Adopt {pet.name}</h2>
-                <p className="adopt-modal-subtitle">
-                  Tell us why you'd be a great match for {pet.name}!
-                </p>
-
-                <div className="adopt-modal-field">
-                  <label>Your Name</label>
-                  <input type="text" value={user?.full_name || ""} disabled />
-                </div>
-                <div className="adopt-modal-field">
-                  <label>Your Email</label>
-                  <input type="text" value={user?.email || ""} disabled />
-                </div>
-                <div className="adopt-modal-field">
-                  <label>Message (optional)</label>
-                  <textarea
-                    rows={4}
-                    placeholder="Why do you want to adopt this pet? Tell us about your home, experience, etc."
-                    value={adoptMessage}
-                    onChange={(e) => setAdoptMessage(e.target.value)}
-                    disabled={adoptSubmitting}
-                  />
-                </div>
-
-                {adoptResult && !adoptResult.success && (
-                  <p className="adopt-modal-error">{adoptResult.message}</p>
-                )}
-
-                <button
-                  type="button"
-                  className="landing-cta-btn adopt-modal-submit"
-                  onClick={handleAdoptSubmit}
-                  disabled={adoptSubmitting}
-                >
-                  {adoptSubmitting ? "Submitting..." : "Submit Request 🐾"}
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      )}
 
       <Footer />
     </main>

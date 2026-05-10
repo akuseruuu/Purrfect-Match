@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../api/api";
+import { API_BASE } from "../utils/constants";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -8,7 +9,7 @@ function FeaturedPetCard({ pet }) {
   const imageUrl = pet.image
     ? pet.image.startsWith("http")
       ? pet.image
-      : `http://localhost:3000/${pet.image}`
+      : `${API_BASE}/${pet.image}`
     : null;
 
   const formatAge = (age) => {
@@ -60,8 +61,9 @@ function LandingPage() {
       try {
         const response = await API.get("/pets");
         const all = response.data.data || [];
-        /* Show the 3 most recent pets */
-        setFeaturedPets(all.slice(0, 3));
+        /* Hide adopted pets, then show the 3 most recent */
+        const available = all.filter((p) => p.status !== "Adopted");
+        setFeaturedPets(available.slice(0, 3));
       } catch {
         /* Silently fail – section just won't show */
       }

@@ -6,12 +6,18 @@ const path = require("path");
 const petRoutes = require("./routes/pets");
 const authRoutes = require("./routes/auth");
 const adoptionRoutes = require("./routes/adoptions");
+const donationRoutes = require("./routes/donations");
+const dashboardRoutes = require("./routes/dashboard");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ── Middleware ───────────────────────────────────────────────────────────────
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || "http://localhost:5173",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -22,6 +28,8 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/pets", petRoutes);
 app.use("/api", authRoutes);
 app.use("/api/adoptions", adoptionRoutes);
+app.use("/api/donations", donationRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 // ── Health check ────────────────────────────────────────────────────────────
 app.get("/", (_req, res) => {
