@@ -83,7 +83,7 @@ function AdminSidebar({ isOpen, onClose }) {
 
         {/* Brand */}
         <div className="admin-brand">
-          <img src="/public/logo.png" alt="Purrfect Match Logo" width="50" height="50" />
+          <img src="logo.png" alt="Purrfect Match Logo" width="50" height="50" />
           <span>
             Purrfect Match
             <br />
