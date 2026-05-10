@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 /* ── Helpers ── */
 
-const API_BASE = "http://localhost:3000";
+import { API_BASE } from "../utils/constants";
 
 function resolveImage(img) {
   if (!img) return null;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../api/api";
 
-const API_BASE = "http://localhost:3000";
+import { API_BASE } from "../utils/constants";
 
 /** Resolves a proof image path into a full URL. */
 function resolveImage(img) {

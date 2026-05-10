@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import API from "../api/api";
+import { API_BASE } from "../utils/constants";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
-const API_BASE = "http://localhost:3000";
 
 function resolveImage(img) {
   if (!img) return null;
@@ -138,7 +136,7 @@ function Donate() {
     formData.append("proof_image", proofFile);
 
     try {
-      const res = await axios.post("http://localhost:3000/api/donations", formData, {
+      const res = await API.post("/donations", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
