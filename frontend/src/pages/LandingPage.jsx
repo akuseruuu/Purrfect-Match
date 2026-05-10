@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../api/api";
+import { API_BASE } from "../utils/constants";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -8,7 +9,7 @@ function FeaturedPetCard({ pet }) {
   const imageUrl = pet.image
     ? pet.image.startsWith("http")
       ? pet.image
-      : `http://localhost:3000/${pet.image}`
+      : `${API_BASE}/${pet.image}`
     : null;
 
   const formatAge = (age) => {

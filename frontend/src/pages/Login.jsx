@@ -32,7 +32,7 @@ function Login() {
   return (
     <main className="auth-page">
       <nav className="auth-navbar">
-        <Link to="/" className="landing-brand">PurrFect Match</Link>
+        <Link to="/" className="landing-brand">Purrfect Match</Link>
         <div className="landing-nav-right">
           <Link to="/login" className="landing-login-link">Login</Link>
           <Link to="/signup" className="landing-signup-btn">Sign-up</Link>

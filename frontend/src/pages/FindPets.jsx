@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../api/api";
+import { API_BASE } from "../utils/constants";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -37,7 +38,7 @@ function FindPets() {
   const resolveImage = (img) => {
     if (!img) return null;
     if (img.startsWith("http")) return img;
-    return `http://localhost:3000/${img}`;
+    return `${API_BASE}/${img}`;
   };
 
   const formatAge = (age) => {

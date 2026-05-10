@@ -3,7 +3,7 @@ import API from "../api/api";
 
 /* ── Helper Functions ── */
 
-const API_BASE = "http://localhost:3000";
+import { API_BASE } from "../utils/constants";
 
 /** Resolves a pet image path into a full URL. */
 function resolveImage(img) {

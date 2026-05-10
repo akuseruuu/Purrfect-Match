@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 /* ── Constants ── */
 
-const API_BASE = "http://localhost:3000";
+import { API_BASE } from "../utils/constants";
 
 const LIVING_OPTIONS = [
   { value: "", label: "Select your living situation" },
