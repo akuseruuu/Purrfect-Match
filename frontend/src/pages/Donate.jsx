@@ -316,7 +316,7 @@ function Donate() {
                   {/* Message */}
                   {formMessage.text && (
                     <div className={`donate-message ${formMessage.type}`}>
-                      {formMessage.type === "success" ? "✅" : "⚠️"} {formMessage.text}
+                      {formMessage.type === "success" ? "" : ""} {formMessage.text}
                     </div>
                   )}
 
