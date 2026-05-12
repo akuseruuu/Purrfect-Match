@@ -5,7 +5,7 @@ const pool = require("../config/db");
 
 const router = express.Router();
 
-// ── Multer setup ────────────────────────────────────────────────────────────
+// ── Multer setup 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
     cb(null, path.join(__dirname, "..", "uploads"));
@@ -23,7 +23,7 @@ const fileFilter = (_req, file, cb) => {
 
 const upload = multer({ storage, fileFilter });
 
-// ── GET /api/pets ───────────────────────────────────────────────────────────
+// ── GET /api/pets 
 router.get("/", async (_req, res) => {
   try {
     const [rows] = await pool.query(
@@ -36,7 +36,7 @@ router.get("/", async (_req, res) => {
   }
 });
 
-// ── POST /api/pets ──────────────────────────────────────────────────────────
+// ── POST /api/pets 
 router.post("/", upload.single("image"), async (req, res) => {
   const { name, species, breed, age, gender, is_vaccinated, description, tags } = req.body;
 
@@ -58,7 +58,7 @@ router.post("/", upload.single("image"), async (req, res) => {
   }
 });
 
-// ── PUT /api/pets/:id ───────────────────────────────────────────────────────
+// ── PUT /api/pets/:id 
 router.put("/:id", upload.single("image"), async (req, res) => {
   const { id } = req.params;
   const { name, species, breed, age, gender, is_vaccinated, description, tags, existing_image } = req.body;
@@ -82,7 +82,7 @@ router.put("/:id", upload.single("image"), async (req, res) => {
   }
 });
 
-// ── DELETE /api/pets/:id ────────────────────────────────────────────────────
+// ── DELETE /api/pets/:id 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {

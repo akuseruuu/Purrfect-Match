@@ -3,7 +3,7 @@ const pool = require("../config/db");
 
 const router = express.Router();
 
-// ── GET /api/dashboard/activity ─────────────────────────────────────────────
+// ── GET /api/dashboard/activity 
 // Returns recent activity feed aggregated from donations, adoptions, and pets.
 // Uses UNION ALL to combine events from multiple tables into a single timeline.
 router.get("/activity", async (_req, res) => {
@@ -55,7 +55,7 @@ router.get("/activity", async (_req, res) => {
   }
 });
 
-// ── GET /api/dashboard/summary ──────────────────────────────────────────────
+// ── GET /api/dashboard/summary 
 // Returns a comprehensive summary report for the admin dashboard.
 router.get("/summary", async (_req, res) => {
   try {

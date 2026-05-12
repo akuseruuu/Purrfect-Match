@@ -4,7 +4,7 @@ const pool = require("../config/db");
 
 const router = express.Router();
 
-// ── POST /api/register (User / Adopter) ─────────────────────────────────────
+// ── POST /api/register (User / Adopter) 
 router.post("/register", async (req, res) => {
   const { full_name, email, password, phone, address } = req.body;
 
@@ -33,7 +33,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// ── POST /api/login (User / Adopter) ────────────────────────────────────────
+// ── POST /api/login (User / Adopter) 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -68,7 +68,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// ── POST /api/admin/login ───────────────────────────────────────────────────
+// ── POST /api/admin/login 
 router.post("/admin/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -103,7 +103,7 @@ router.post("/admin/login", async (req, res) => {
   }
 });
 
-// ── POST /api/admin/register ────────────────────────────────────────────────
+// ── POST /api/admin/register 
 router.post("/admin/register", async (req, res) => {
   const { username, full_name, password } = req.body;
 
@@ -132,7 +132,7 @@ router.post("/admin/register", async (req, res) => {
   }
 });
 
-// ── PUT /api/users/:id (Update profile — phone & address) ──────────────────
+// ── PUT /api/users/:id (Update profile — phone & address)
 router.put("/users/:id", async (req, res) => {
   const { id } = req.params;
   const { phone, address } = req.body;

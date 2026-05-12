@@ -97,9 +97,9 @@ function RadioGroup({ label, name, value, onChange, options, error }) {
   );
 }
 
-/* ══════════════════════════════════════════════════════════════════════════════
+/* 
    Main Adoption Page Component
-   ══════════════════════════════════════════════════════════════════════════════ */
+  */
 
 function AdoptPet() {
   const { petId } = useParams();

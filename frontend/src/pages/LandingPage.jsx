@@ -92,7 +92,7 @@ function LandingPage() {
           </Link>
         </div>
         <div className="landing-hero-image">
-          <img src="/hero.png" alt="Person hugging a dog" />
+          <img src="/hero.png" alt="Person hugging a dog" style={{ width: "200%", height: "100%" }} />
         </div>
       </section>
 

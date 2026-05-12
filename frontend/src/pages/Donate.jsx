@@ -27,9 +27,9 @@ const statusConfig = {
   rejected: { color: "#c62828", bg: "#ffebee", label: "Rejected" },
 };
 
-/* ══════════════════════════════════════════════════════════════════════════════
+/* 
    Main Component
-   ══════════════════════════════════════════════════════════════════════════════ */
+  */
 
 function Donate() {
   const navigate = useNavigate();

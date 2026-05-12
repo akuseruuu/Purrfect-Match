@@ -6,13 +6,13 @@ const pool = require("../config/db");
 
 const router = express.Router();
 
-// ── Ensure uploads/donations directory exists ────────────────────────────────
+// ── Ensure uploads/donations directory exists 
 const donationsDir = path.join(__dirname, "..", "uploads", "donations");
 if (!fs.existsSync(donationsDir)) {
   fs.mkdirSync(donationsDir, { recursive: true });
 }
 
-// ── Multer setup for donation proof images ───────────────────────────────────
+// ── Multer setup for donation proof images 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
     cb(null, donationsDir);
@@ -38,7 +38,7 @@ const upload = multer({
   limits: { fileSize: 2 * 1024 * 1024 }, // 2 MB
 });
 
-// ── POST /api/donations ─────────────────────────────────────────────────────
+// ── POST /api/donations
 // Submit a new donation with proof image.
 // Wraps multer in manual error handling so file-related errors return proper messages.
 router.post("/", (req, res) => {
@@ -95,7 +95,7 @@ router.post("/", (req, res) => {
   });
 });
 
-// ── GET /api/donations/my/:userId ───────────────────────────────────────────
+// ── GET /api/donations/my/:userId 
 // Return all donations for a specific user.
 router.get("/my/:userId", async (req, res) => {
   const { userId } = req.params;
@@ -116,7 +116,7 @@ router.get("/my/:userId", async (req, res) => {
   }
 });
 
-// ── GET /api/donations/stats ────────────────────────────────────────────────
+// ── GET /api/donations/stats
 // Returns counts + total for dashboard stat cards.
 // NOTE: Must be defined BEFORE the catch-all GET "/" route.
 router.get("/stats", async (_req, res) => {
@@ -137,7 +137,7 @@ router.get("/stats", async (_req, res) => {
   }
 });
 
-// ── GET /api/donations/monthly ──────────────────────────────────────────────
+// ── GET /api/donations/monthly
 // Returns monthly donation totals for the specified range (for chart visualization).
 // Accepts ?months=N query param (1, 3, 6, 12). Defaults to 6.
 router.get("/monthly", async (req, res) => {
@@ -170,7 +170,7 @@ router.get("/monthly", async (req, res) => {
   }
 });
 
-// ── GET /api/donations/export/csv ───────────────────────────────────────────
+// ── GET /api/donations/export/csv 
 // Exports donation records as a CSV file for reporting.
 // Accepts optional ?months=N query param (1, 3, 6, 12) to filter by date range.
 router.get("/export/csv", async (req, res) => {
@@ -228,7 +228,7 @@ router.get("/export/csv", async (req, res) => {
   }
 });
 
-// ── GET /api/donations ──────────────────────────────────────────────────────
+// ── GET /api/donations 
 // Admin: Return all donations with user info.
 router.get("/", async (_req, res) => {
   try {
@@ -255,7 +255,7 @@ router.get("/", async (_req, res) => {
   }
 });
 
-// ── PATCH /api/donations/:id/approve ────────────────────────────────────────
+// ── PATCH /api/donations/:id/approve 
 // Admin: Approve a donation.
 router.patch("/:id/approve", async (req, res) => {
   const { id } = req.params;
@@ -280,7 +280,7 @@ router.patch("/:id/approve", async (req, res) => {
   }
 });
 
-// ── PATCH /api/donations/:id/reject ─────────────────────────────────────────
+// ── PATCH /api/donations/:id/reject 
 // Admin: Reject a donation.
 router.patch("/:id/reject", async (req, res) => {
   const { id } = req.params;

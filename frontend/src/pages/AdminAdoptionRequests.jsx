@@ -145,15 +145,15 @@ function RequestCard({ request, processing, onStatusUpdate }) {
   );
 }
 
-/* ══════════════════════════════════════════════════════════════════════════════
+/* 
    Main Component
-   ══════════════════════════════════════════════════════════════════════════════ */
+   */
 
 function AdminAdoptionRequests() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(null);
-  
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;

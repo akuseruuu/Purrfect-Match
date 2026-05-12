@@ -112,9 +112,9 @@ function DonationCard({ donation, processing, onApprove, onReject, onImageClick 
   );
 }
 
-/* ══════════════════════════════════════════════════════════════════════════════
+/*
    Main Component
-   ══════════════════════════════════════════════════════════════════════════════ */
+  */
 
 function AdminDonations() {
   const [donations, setDonations] = useState([]);

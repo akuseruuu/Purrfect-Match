@@ -3,7 +3,7 @@ const pool = require("../config/db");
 
 const router = express.Router();
 
-// ── POST /api/adoptions ─────────────────────────────────────────────────────
+// ── POST /api/adoptions 
 // TRANSACTION: Inserts adoption request AND updates pet status atomically.
 // If either operation fails, the entire transaction is rolled back.
 router.post("/", async (req, res) => {
@@ -105,7 +105,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// ── GET /api/adoptions ──────────────────────────────────────────────────────
+// ── GET /api/adoptions 
 // JOIN: Fetches adoption requests with related user and pet information
 // in a single query using INNER JOINs across three tables.
 router.get("/", async (_req, res) => {
@@ -144,7 +144,7 @@ router.get("/", async (_req, res) => {
   }
 });
 
-// ── GET /api/adoptions/user/:userId ─────────────────────────────────────────
+// ── GET /api/adoptions/user/:userId 
 // LEFT JOIN: Fetches a specific user's adoption requests with pet info.
 // Used by the adopter profile page for application tracking.
 router.get("/user/:userId", async (req, res) => {
@@ -178,7 +178,7 @@ router.get("/user/:userId", async (req, res) => {
   }
 });
 
-// ── GET /api/adoptions/stats ────────────────────────────────────────────────
+// ── GET /api/adoptions/stats 
 // Returns counts for dashboard stat cards.
 router.get("/stats", async (_req, res) => {
   try {
@@ -197,7 +197,7 @@ router.get("/stats", async (_req, res) => {
   }
 });
 
-// ── PUT /api/adoptions/:id/status ───────────────────────────────────────────
+// ── PUT /api/adoptions/:id/status 
 // TRANSACTION: Approve or reject an adoption request.
 // On approval → pet status becomes 'Adopted', all other pending requests for
 // the same pet are automatically rejected.

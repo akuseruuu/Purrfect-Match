@@ -30,8 +30,16 @@ function Signup() {
       setError("Please enter your full name.");
       return;
     }
+    if (!formData.phone.trim()) {
+      setError("Please enter your phone number.");
+      return;
+    }
     if (!formData.email.trim()) {
       setError("Please enter your email address.");
+      return;
+    }
+    if (!formData.address.trim()) {
+      setError("Please enter your address.");
       return;
     }
     if (formData.password.length < 6) {
@@ -81,11 +89,7 @@ function Signup() {
         <form onSubmit={handleSubmit} className="auth-form" noValidate>
           {error && (
             <div className="auth-error-banner">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="15" y1="9" x2="9" y2="15" />
-                <line x1="9" y1="9" x2="15" y2="15" />
-              </svg>
+              <span style={{ fontSize: "20px" }}>⚠️</span>
               {error}
             </div>
           )}
@@ -94,10 +98,7 @@ function Signup() {
             <div className="auth-field">
               <label htmlFor="signup-name">Full Name</label>
               <div className="auth-input-wrapper">
-                <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
+                <img src="/user.png" alt="Name" className="auth-input-icon" style={{ opacity: 0.3, width: "18px", height: "18px" }} />
                 <input
                   id="signup-name"
                   type="text"
@@ -113,9 +114,7 @@ function Signup() {
             <div className="auth-field">
               <label htmlFor="signup-phone">Phone Number</label>
               <div className="auth-input-wrapper">
-                <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-                </svg>
+                <img src="/telephone.png" alt="Phone" className="auth-input-icon" style={{ opacity: 0.3, width: "18px", height: "18px" }} />
                 <input
                   id="signup-phone"
                   type="tel"
@@ -123,6 +122,7 @@ function Signup() {
                   placeholder="09XX XXX XXXX"
                   value={formData.phone}
                   onChange={handleChange}
+                  required
                   autoComplete="tel"
                 />
               </div>
@@ -132,10 +132,7 @@ function Signup() {
           <div className="auth-field">
             <label htmlFor="signup-email">Email Address</label>
             <div className="auth-input-wrapper">
-              <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2" />
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-              </svg>
+              <img src="/mail.png" alt="Email" className="auth-input-icon" style={{ opacity: 0.3, width: "18px", height: "18px" }} />
               <input
                 id="signup-email"
                 type="email"
@@ -152,10 +149,7 @@ function Signup() {
           <div className="auth-field">
             <label htmlFor="signup-address">Address</label>
             <div className="auth-input-wrapper">
-              <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
+              <img src="/location.png" alt="Address" className="auth-input-icon" style={{ opacity: 0.3, width: "18px", height: "18px" }} />
               <input
                 id="signup-address"
                 type="text"
@@ -163,6 +157,7 @@ function Signup() {
                 placeholder="City, Province"
                 value={formData.address}
                 onChange={handleChange}
+
                 autoComplete="street-address"
               />
             </div>
@@ -172,10 +167,7 @@ function Signup() {
             <div className="auth-field">
               <label htmlFor="signup-password">Password</label>
               <div className="auth-input-wrapper">
-                <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
+                <img src="/password.png" alt="Password" className="auth-input-icon" style={{ opacity: 0.3, width: "18px", height: "18px" }} />
                 <input
                   id="signup-password"
                   type="password"
@@ -191,10 +183,7 @@ function Signup() {
             <div className="auth-field">
               <label htmlFor="signup-confirm">Confirm Password</label>
               <div className="auth-input-wrapper">
-                <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
+                <img src="/password.png" alt="password" className="auth-input-icon" style={{ opacity: 0.3, width: "18px", height: "18px" }} />
                 <input
                   id="signup-confirm"
                   type="password"

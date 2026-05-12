@@ -92,9 +92,9 @@ function getStatusColor(type, status) {
   return "#555";
 }
 
-/* ══════════════════════════════════════════════════════════════════════════════
+/* 
    Main Component
-   ══════════════════════════════════════════════════════════════════════════════ */
+    */
 
 function AdminDashboard() {
   const [totalPets, setTotalPets] = useState(0);
