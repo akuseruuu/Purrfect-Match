@@ -132,4 +132,34 @@ router.post("/admin/register", async (req, res) => {
   }
 });
 
+// ── PUT /api/users/:id (Update profile — phone & address) ──────────────────
+router.put("/users/:id", async (req, res) => {
+  const { id } = req.params;
+  const { phone, address } = req.body;
+
+  try {
+    await pool.query(
+      "UPDATE users SET phone = ?, address = ? WHERE user_id = ?",
+      [phone || null, address || null, id]
+    );
+
+    // Return updated user data
+    const [rows] = await pool.query(
+      "SELECT user_id, full_name, email, phone, address FROM users WHERE user_id = ? LIMIT 1",
+      [id]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: "User not found." });
+    }
+
+    const updatedUser = rows[0];
+    updatedUser.role = "adopter";
+    res.json({ success: true, message: "Profile updated successfully.", user: updatedUser });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Failed to update profile." });
+  }
+});
+
 module.exports = router;

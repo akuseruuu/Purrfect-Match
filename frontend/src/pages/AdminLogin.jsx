@@ -54,12 +54,8 @@ function AdminLogin() {
 
       <section className="auth-card">
         <div className="auth-card-header">
-          <div className="auth-admin-badge">
-            <span>🛡️</span> Admin Portal
-          </div>
           <img src="/logo.png" alt="Purrfect Match" className="auth-logo" />
           <h1 className="auth-title">Admin Login</h1>
-          <p className="auth-subtitle">Access the administration dashboard</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form" noValidate>

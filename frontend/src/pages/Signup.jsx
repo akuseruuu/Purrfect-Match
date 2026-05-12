@@ -102,7 +102,7 @@ function Signup() {
                   id="signup-name"
                   type="text"
                   name="full_name"
-                  placeholder="Juan Dela Cruz"
+                  placeholder="Lebron James"
                   value={formData.full_name}
                   onChange={handleChange}
                   required
