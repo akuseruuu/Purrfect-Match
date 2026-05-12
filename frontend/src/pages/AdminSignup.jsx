@@ -71,9 +71,6 @@ function AdminSignup() {
 
       <section className="auth-card">
         <div className="auth-card-header">
-          <div className="auth-admin-badge">
-            <span>🛡️</span> Admin Portal
-          </div>
           <img src="/logo.png" alt="Purrfect Match" className="auth-logo" />
           <h1 className="auth-title">Admin Sign Up</h1>
           <p className="auth-subtitle">Create a new administrator account</p>
@@ -82,11 +79,7 @@ function AdminSignup() {
         <form onSubmit={handleSubmit} className="auth-form" noValidate>
           {error && (
             <div className="auth-error-banner">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="15" y1="9" x2="9" y2="15" />
-                <line x1="9" y1="9" x2="15" y2="15" />
-              </svg>
+              <span style={{ fontSize: "20px" }}>⚠️</span>
               {error}
             </div>
           )}
@@ -95,10 +88,7 @@ function AdminSignup() {
             <div className="auth-field">
               <label htmlFor="admin-signup-name">Full Name</label>
               <div className="auth-input-wrapper">
-                <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
+                <img src="/user.png" alt="Name" className="auth-input-icon" style={{ opacity: 0.3, width: "18px", height: "18px" }} />
                 <input
                   id="admin-signup-name"
                   type="text"
@@ -114,10 +104,7 @@ function AdminSignup() {
             <div className="auth-field">
               <label htmlFor="admin-signup-username">Username</label>
               <div className="auth-input-wrapper">
-                <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="4" />
-                  <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94" />
-                </svg>
+                <img src="/mail.png" alt="Username" className="auth-input-icon" style={{ opacity: 0.3, width: "18px", height: "18px" }} />
                 <input
                   id="admin-signup-username"
                   type="text"
@@ -136,10 +123,7 @@ function AdminSignup() {
             <div className="auth-field">
               <label htmlFor="admin-signup-password">Password</label>
               <div className="auth-input-wrapper">
-                <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
+                <img src="/password.png" alt="Password" className="auth-input-icon" style={{ opacity: 0.3, width: "18px", height: "18px" }} />
                 <input
                   id="admin-signup-password"
                   type="password"
@@ -155,10 +139,7 @@ function AdminSignup() {
             <div className="auth-field">
               <label htmlFor="admin-signup-confirm">Confirm Password</label>
               <div className="auth-input-wrapper">
-                <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
+                <img src="/password.png" alt="Password" className="auth-input-icon" style={{ opacity: 0.3, width: "18px", height: "18px" }} />
                 <input
                   id="admin-signup-confirm"
                   type="password"
