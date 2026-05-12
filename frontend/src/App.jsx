@@ -3,7 +3,6 @@ import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AdminLogin from "./pages/AdminLogin";
-import AdminSignup from "./pages/AdminSignup";
 import AdminLayout from "./components/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminPets from "./pages/AdminPets";
@@ -32,7 +31,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/signup" element={<AdminSignup />} />
         <Route path="/pets" element={<FindPets />} />
         <Route path="/pets/:id" element={<PetProfile />} />
         <Route path="/donate" element={<Donate />} />

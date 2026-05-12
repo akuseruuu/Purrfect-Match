@@ -126,11 +126,6 @@ function AdminLogin() {
             )}
           </button>
 
-          <p className="auth-switch">
-            Need an admin account?{" "}
-            <Link to="/admin/signup" className="auth-switch-link">Sign Up</Link>
-          </p>
-
         </form>
       </section>
     </main>

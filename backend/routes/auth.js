@@ -103,35 +103,6 @@ router.post("/admin/login", async (req, res) => {
   }
 });
 
-// ── POST /api/admin/register 
-router.post("/admin/register", async (req, res) => {
-  const { username, full_name, password } = req.body;
-
-  if (!username || !full_name || !password) {
-    return res.status(400).json({ success: false, message: "Username, full name and password are required." });
-  }
-
-  try {
-    // Check for existing admin
-    const [existing] = await pool.query("SELECT admin_id FROM admins WHERE username = ? LIMIT 1", [username]);
-    if (existing.length > 0) {
-      return res.status(409).json({ success: false, message: "Username already exists." });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    await pool.query(
-      "INSERT INTO admins (username, full_name, password) VALUES (?, ?, ?)",
-      [username, full_name, hashedPassword]
-    );
-
-    res.json({ success: true, message: "Admin registered successfully." });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: "Admin registration failed." });
-  }
-});
-
 // ── PUT /api/users/:id (Update profile — phone & address)
 router.put("/users/:id", async (req, res) => {
   const { id } = req.params;
