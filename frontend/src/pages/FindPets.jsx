@@ -90,7 +90,29 @@ function FindPets() {
     }
   }, [totalPages, currentPage]);
 
-  const uniqueBreeds = Array.from(new Set(pets.map((p) => p.breed).filter(Boolean)));
+  // Derive dynamic filter options from data
+  const uniqueSpecies = Array.from(new Set(pets.map((p) => p.species).filter(Boolean))).sort();
+  
+  const uniqueBreeds = Array.from(
+    new Set(
+      pets
+        .filter((p) => species === "All Species" || p.species?.toLowerCase() === species.toLowerCase())
+        .map((p) => p.breed)
+        .filter(Boolean)
+    )
+  ).sort();
+
+  // Reset breed when species changes to avoid invalid combinations
+  useEffect(() => {
+    if (species !== "All Species") {
+      const isValidBreed = pets.some(
+        (p) => p.species?.toLowerCase() === species.toLowerCase() && p.breed === breed
+      );
+      if (!isValidBreed && breed !== "All Breed") {
+        setBreed("All Breed");
+      }
+    }
+  }, [species, pets]);
 
   return (
     <main className="landing-page">
@@ -121,9 +143,9 @@ function FindPets() {
               <label>SPECIES</label>
               <select value={species} onChange={(e) => setSpecies(e.target.value)}>
                 <option>All Species</option>
-                <option>Dog</option>
-                <option>Cat</option>
-                <option>Bird</option>
+                {uniqueSpecies.map((s) => (
+                  <option key={s} value={s}>{s}</option>
+                ))}
               </select>
             </div>
             <div className="findpets-dropdown-col">

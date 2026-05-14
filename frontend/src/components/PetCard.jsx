@@ -1,8 +1,10 @@
+import { API_BASE } from "../utils/constants";
+
 function PetCard({ pet, onEdit, onDelete }) {
   const imageUrl = pet.image
     ? pet.image.startsWith("http")
       ? pet.image
-      : `http://localhost/backend/${pet.image}`
+      : `${API_BASE}/${pet.image}`
     : null;
 
   return (

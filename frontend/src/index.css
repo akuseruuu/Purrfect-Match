@@ -1694,6 +1694,7 @@ button {
   max-width: 1060px;
   margin: 0 auto;
   padding: 32px 80px 60px;
+  min-height: 72vh;
 }
 
 .pet-profile-back {
