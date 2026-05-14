@@ -14,6 +14,7 @@ function FindPets() {
   const [species, setSpecies] = useState("All Species");
   const [breed, setBreed] = useState("All Breed");
   const [ageRange, setAgeRange] = useState("All Age");
+  const [selectedTag, setSelectedTag] = useState("All Tags");
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,15 +61,30 @@ function FindPets() {
       if (ageRange === "Baby/Young" && isAdult) return false;
       if (ageRange === "Adult/Senior" && !isAdult) return false;
     }
+    if (selectedTag !== "All Tags") {
+      const petTags = pet.tags?.split(",").map((t) => t.trim().toLowerCase()) || [];
+      if (!petTags.includes(selectedTag.toLowerCase())) return false;
+    }
     if (search) {
-      const s = search.toLowerCase();
-      if (
-        !pet.name?.toLowerCase().includes(s) &&
-        !pet.species?.toLowerCase().includes(s) &&
-        !pet.breed?.toLowerCase().includes(s)
-      ) {
-        return false;
-      }
+      const tokens = search.toLowerCase().split(/\s+/).filter(Boolean);
+      const formattedAge = formatAge(pet.age).toLowerCase();
+      const isAdult = parseInt(pet.age, 10) >= 12;
+      const ageCategory = isAdult ? "adult senior" : "baby young";
+      
+      const petSearchContent = `
+        ${pet.name || ""} 
+        ${pet.species || ""} 
+        ${pet.breed || ""} 
+        ${pet.tags || ""} 
+        ${pet.description || ""} 
+        ${pet.age} 
+        ${formattedAge} 
+        ${ageCategory}
+      `.toLowerCase();
+
+      // Check if EVERY token in the search string matches SOMETHING in the pet's data
+      const isMatch = tokens.every(token => petSearchContent.includes(token));
+      if (!isMatch) return false;
     }
     return true;
   });
@@ -102,6 +118,15 @@ function FindPets() {
     )
   ).sort();
 
+  const uniqueTags = Array.from(
+    new Set(
+      pets
+        .flatMap((p) => p.tags?.split(",") || [])
+        .map((t) => t.trim())
+        .filter(Boolean)
+    )
+  ).sort();
+
   // Reset breed when species changes to avoid invalid combinations
   useEffect(() => {
     if (species !== "All Species") {
@@ -131,10 +156,21 @@ function FindPets() {
               </svg>
               <input
                 type="text"
-                placeholder="Search by species, breed, age"
+                placeholder="Search by name, breed, tags..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
+              {search && (
+                <button
+                  type="button"
+                  className="pet-search-clear"
+                  onClick={() => setSearch("")}
+                  title="Clear search"
+                  style={{ position: 'absolute', right: '12px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '16px', color: '#888' }}
+                >
+                  ✕
+                </button>
+              )}
             </div>
           </div>
 
@@ -163,6 +199,15 @@ function FindPets() {
                 <option>All Age</option>
                 <option>Baby/Young</option>
                 <option>Adult/Senior</option>
+              </select>
+            </div>
+            <div className="findpets-dropdown-col">
+              <label>TAGS</label>
+              <select value={selectedTag} onChange={(e) => setSelectedTag(e.target.value)}>
+                <option>All Tags</option>
+                {uniqueTags.map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ))}
               </select>
             </div>
           </div>
