@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import API from "../api/api";
 
 import { API_BASE } from "../utils/constants";
@@ -146,10 +147,11 @@ function AdminDonations() {
     setProcessing(donationId);
     try {
       await API.patch(`/donations/${donationId}/approve`);
+      toast.success("Donation approved successfully! ");
       await fetchDonations();
     } catch (err) {
-      console.error("Failed to approve donation:", err);
-      alert(err.response?.data?.message || "Failed to approve donation.");
+      const msg = err.response?.data?.message || "Failed to approve donation.";
+      toast.error(msg);
     } finally {
       setProcessing(null);
     }
@@ -159,10 +161,11 @@ function AdminDonations() {
     setProcessing(donationId);
     try {
       await API.patch(`/donations/${donationId}/reject`);
+      toast.success("Donation rejected.");
       await fetchDonations();
     } catch (err) {
-      console.error("Failed to reject donation:", err);
-      alert(err.response?.data?.message || "Failed to reject donation.");
+      const msg = err.response?.data?.message || "Failed to reject donation.";
+      toast.error(msg);
     } finally {
       setProcessing(null);
     }

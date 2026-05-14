@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import API from "../api/api";
 
 /* ── Helper Functions ── */
@@ -177,10 +178,11 @@ function AdminAdoptionRequests() {
     setProcessing(requestId);
     try {
       await API.put(`/adoptions/${requestId}/status`, { status });
+      toast.success(`Request ${status.toLowerCase()} successfully!`);
       await fetchRequests();
     } catch (err) {
-      console.error("Failed to update status:", err);
-      alert(err.response?.data?.message || "Failed to update request.");
+      const msg = err.response?.data?.message || "Failed to update request.";
+      toast.error(msg);
     } finally {
       setProcessing(null);
     }

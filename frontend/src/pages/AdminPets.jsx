@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import API from "../api/api";
 import PetForm from "./PetForm";
 
@@ -204,14 +205,18 @@ function AdminPets() {
 
       if (selectedPet) {
         await API.put(`/pets/${selectedPet.id}`, formData, config);
+        toast.success("Pet updated successfully! ");
       } else {
         await API.post("/pets", formData, config);
+        toast.success("New pet added successfully! ");
       }
 
       closeForm();
       refreshAll();
     } catch (err) {
-      setError(err.response?.data?.message || "Unable to save pet.");
+      const msg = err.response?.data?.message || "Unable to save pet.";
+      setError(msg);
+      toast.error(msg);
     }
   };
 
@@ -223,9 +228,12 @@ function AdminPets() {
     setError("");
     try {
       await API.delete(`/pets/${id}`);
+      toast.success("Pet deleted successfully.");
       refreshAll();
     } catch (err) {
-      setError(err.response?.data?.message || "Unable to delete pet.");
+      const msg = err.response?.data?.message || "Unable to delete pet.";
+      setError(msg);
+      toast.error(msg);
     }
   };
 
